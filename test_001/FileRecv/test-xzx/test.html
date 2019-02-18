@@ -1,0 +1,102 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            user-select: none;
+            /*阻止文本选中*/
+            width:100%;
+            height:100%;
+            position:relative;
+        }
+
+        #test {
+            width: 400px;
+            height: 400px;
+            margin: auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        #test ul li {
+            list-style: none;
+            width: 150px;
+            height: 150px;
+            margin: 10px;
+            float: left;
+        }
+        #test ul li img {
+            width: 150px;
+            height: 150px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="test">
+        <ul>
+            <li><img src="img/1.jpg" onclick="test1(this)" ondblclick="test2(this)" onmousedown="test3(event, this)"></li>
+            <li><img src="img/2.jpg" onclick="test1(this)" ondblclick="test2(this)" onmousedown="test3(event, this)"></li>
+            <li><img src="img/3.jpg" onclick="test1(this)" ondblclick="test2(this)" onmousedown="test3(event, this)"></li>
+            <li><img src="img/4.jpg" onclick="test1(this)" ondblclick="test2(this)" onmousedown="test3(event, this)"></li>
+        </ul>
+    </div>
+
+
+<script src="js/move.js"></script>
+    <script>
+        //单击延时触发
+        var clickTimeId;
+        var num = 1;
+        window.onload = function () {
+            //屏蔽自带右键菜单
+            document.oncontextmenu = function (e) {
+                return false;
+            }
+            initDragHtml();
+        }
+        //左键单击
+        function test1(self) {
+            //执行延时
+            clickTimeId = setTimeout(function () {
+                num -= 1;
+                var hw = 150;
+                var newHw = (100 + num) * hw / 100;
+                self.style.width = newHw
+                self.style.height = newHw
+            }, 260);
+        }
+        //双击
+        function test2(self) {
+            // 取消上次延时未执行的方法
+            clearTimeout(clickTimeId);
+            self.style.transform = "rotate(180deg)";
+        }
+        //右击
+        function test3(event, self) {
+
+            if (event.button == 2) {
+                num += 1;
+                var hw = 150;
+                var newHw = (100 + num) * hw / 100;
+                self.style.width = newHw
+                self.style.height = newHw
+            }
+        }
+    </script>
+
+  
+</body>
+
+</html>

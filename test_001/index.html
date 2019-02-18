@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>测试1</title>
+</head>
+
+<body oncontextmenu="self.event.returnvalue=false">
+<div style="width:50%;height:50%;position:fixed;left:30%;TOP:25%;">
+    <span id="s1" style="float:left;width:300px;height:200px;"><img ondragstart=dragstart(1) ondragenter=drag(event,1)
+                                                                    draggable="true" onclick=lclick(1)
+                                                                    onmousedown=mousedown(event,1)
+                                                                    ondblclick=dblclick(1) id="pic1" src="1.jpg"
+                                                                    width=300px/></span>
+    <span id="s2" style="float:left;width:300px;height:200px;"><img ondragstart=dragstart(2) ondragenter=drag(event,2)
+                                                                    draggable="true" onclick=lclick(2)
+                                                                    onmousedown=mousedown(event,2)
+                                                                    ondblclick=dblclick(2) id="pic2" src="2.jpg"
+                                                                    width=300px/></span>
+    <span id="s3" style="float:left;width:300px;height:200px;"><img ondragstart=dragstart(3) ondragenter=drag(event,3)
+                                                                    draggable="true" onclick=lclick(3)
+                                                                    onmousedown=mousedown(event,3)
+                                                                    ondblclick=dblclick(3) id="pic3" src="3.jpg"
+                                                                    width=300px/></span>
+    <span id="s4" style="float:left;width:300px;height:200px;"><img ondragstart=dragstart(4) ondragenter=drag(event,4)
+                                                                    draggable="true" onclick=lclick(4)
+                                                                    onmousedown=mousedown(event,4)
+                                                                    ondblclick=dblclick(4) id="pic4" src="4.jpg"
+                                                                    width=300px/></span>
+</div>
+<script language="javascript">
+    document.oncontextmenu = function () {
+        return false;
+    };
+    var pre = null;
+
+    function dragstart(id) {
+        pre = eval("pic" + id);
+    }
+
+    function drag(event, id) {
+        var e = eval("pic" + id);
+        var str1 = pre.src;
+        var str2 = e.src;
+        e.src = str1;
+        pre.src = str2;
+    }
+
+    function dblclick(id) {
+        var e = eval("pic" + id);
+        e.style = "transform: rotate(180deg);";
+    }
+
+    function lclick(id) {
+        var e = eval("pic" + id);
+        var oldwidth = e.width;
+        e.width = oldwidth * 0.99;
+    }
+
+    function mousedown(event, id) {
+        var btnNum = event.button;
+        if (btnNum === 2) {
+            var e = eval("pic" + id);
+            var oldwidth = e.width;
+            e.width = oldwidth * 1.01;
+            event.returnvalue = false;
+        }
+    }
+</script>
+</body>
+</html>

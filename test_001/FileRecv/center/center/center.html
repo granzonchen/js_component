@@ -1,0 +1,86 @@
+<!DOCTYPE >
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <style>
+        .box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <div>
+        <div><img src="tag1.png"/></div>
+        <div><img src="tag2.png"/></div>
+    </div>
+    <div>
+        <div><img src="tag3.png"/></div>
+        <div><img src="tag4.png"/></div>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+    window.onload = function () {
+        var image = document.querySelectorAll('img');
+        var clickTimeId;
+        var imgsrc = null;
+        var source = null;
+        image.forEach(function (val, index) {
+            val.oncontextmenu = function (e) {
+                e.preventDefault();
+                if (this.style.zoom == "") {
+                    this.style.zoom = 0.99;
+                } else {
+                    this.style.zoom = Number(this.style.zoom) - Number(0.01);
+                }
+            };
+            val.addEventListener('click', onDocumentClick);
+            val.addEventListener('dblclick', onDocumenDblClick);
+
+            val.ondragover = function (ev) {
+                ev.preventDefault();
+            }
+            val.ondragstart = function (ev) {
+                imgsrc = this.src;
+                source = this;
+            }
+
+            val.ondrop = function (ev) {
+                ev.preventDefault();
+                console.log(source.src);
+                source.src = this.src;
+                this.src = imgsrc;
+            }
+        });
+
+
+        function onDocumentClick(event) {
+            clearTimeout(clickTimeId);
+            var item = this;
+            clickTimeId = setTimeout(function () {
+                if (event.button == 0) {
+                    if (item.style.zoom == "") {
+                        item.style.zoom = 1.01;
+                    } else {
+                        item.style.zoom = Number(0.01) + Number(item.style.zoom);
+                    }
+                }
+            }, 250);
+        }
+
+        function onDocumenDblClick(event) {
+            clearTimeout(clickTimeId);
+            if (this.style.webkitTransform == "rotate(180deg)") {
+                this.style.webkitTransform = "rotate(0deg)";
+            } else {
+                this.style.webkitTransform = "rotate(180deg)";
+            }
+        }
+    }
+</script>
+</html> 

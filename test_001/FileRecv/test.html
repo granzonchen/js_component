@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Test</title>
+    <style type="text/css">
+        #main{
+            position: fixed;
+            top: 25%;
+            left: 25%;
+            width: 50%;
+            height: 50%;
+            background-color: gray;
+        
+        }
+        .content{
+            position: relative;
+            float: left;
+            width:50%;
+            height: 50%;
+        }
+        .img{
+            width:100%;
+            height: 100%;
+        }
+        .red{
+            background-color: red;
+        }
+        .blue{
+            background-color: blue;
+        }
+        .yellow{
+            background-color: yellow;
+        }
+        .green{
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+    <div id="main">
+        <div id="f1" class="content" onmousedown="Oneclick(event)">
+            <div class="red img" draggable="true"></div>
+        </div>
+        <div id="f2" class="content" onmousedown="Oneclick(event)">
+            <div class="blue img" draggable="true"></div>
+        </div>
+        <div id="f3" class="content" onmousedown="Oneclick(event)">
+            <div class="yellow img" draggable="true"></div>
+        </div>
+        <div id="f4" class="content" onmousedown="Oneclick(event)">
+            <div class="green img" draggable="true"></div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var dragged;
+        function Oneclick(event){
+            if(event.button == "2"){
+                event.target.style.width = "100%"
+                event.target.style.height = "100%"
+            }else{
+                event.target.style.width = "99%"
+                event.target.style.height = "99%"
+            }
+        }
+        /* 事件在拖拽元素上触发 */
+        document.addEventListener("dragstart", function( event ) {
+          // 存储相关的拖拽元素
+          dragged = event.target;
+          draggedFather = event.target.parentNode;
+          event.dataTransfer.setData("Text",event.target.parentNode.id);
+
+        }, false);
+        /* 事件在目标区域触发 */
+        document.addEventListener("dragover", function( event ) {
+          // 默认情况下是无法允许一个元素放置在另一个元素上的，要放置必须阻止默认行为
+          event.preventDefault();
+        }, false);
+        document.addEventListener("drop", function( event ) {
+          // 阻止默认行为（drop的默认处理方式是当初链接处理）
+          event.preventDefault();
+          // 把拖拽元素移入目标区域
+          //这里要经过两步处理
+          // 1、先把拖拽元素从原父元素中删除（这步不是必须的）
+          ///2、然后再添加到目标区域
+          if ( event.target.className.indexOf("img")>=0 ) {
+            father = event.target.parentNode;
+            document.getElementById(event.dataTransfer.getData("Text")).appendChild(event.target);
+            father.appendChild(dragged);
+            //console.log(draggedFather);
+            /*dragged.parentNode.removeChild( dragged );
+            draggedFather.removeChild(dragged);*/
+              
+          }
+        }, false);
+    </script>
+</body>
+</html>

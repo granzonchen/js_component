@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试</title>
+    <style>
+        body {
+            padding: 0;
+            background-attachment: fixed;
+            background-clip: border-box;
+            background-color: #666666;
+            background-origin: padding-box;
+            background-position: center top;
+            background-repeat: no-repeat;
+            background-size: cover;
+            width: 320px;
+            background-image: url("1.jpg");
+        }
+    </style>
+</head>
+<body>
+
+<div style="width: 320px;margin-left: 30%">
+    <header>
+        <img style="float: left" src="101.png">
+    </header>
+    <span><input type="text" class="user" placeholder=""/><img src="2-11.png"
+                                                               style="width: 30px;height: 30px;padding-top: 50px"></span>
+    <div style="margin-top: 150px"><a href="http://www.baidu.com">切换至国际版</a></div>
+    <div>直搜全球英文信息</div>
+</div>
+<script>
+    window.ready = function () {
+        let imgs = ["1.jpg", "2.jpg", "3.jpg"];
+        let i = 0;
+        let bg = document.getElementsByTagName("body");
+
+        function time() {
+            i++;
+            i = i % 3;
+            bg.style.background = "url(" + imgs[i] + ")";
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+﻿<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            user-select: none;
+            /*阻止文本选中*/
+            width:100%;
+            height:100%;
+            position:relative;
+        }
+
+        #test {
+            width: 500px;
+            height: 400px;
+            margin: auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        #test ul li {
+            list-style: none;
+            width: 200px;
+            height: 150px;
+            margin: 5px;
+            float: left;
+        }
+        #test ul li img {
+            width: 200px;
+            height: 150px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="test">
+        <ul>
+            <li><img src="img/1.jpg" onclick="left(this)" ondblclick="double(this)" onmousedown="right(event, this)"></li>
+            <li><img src="img/2.jpg" onclick="left(this)" ondblclick="double(this)" onmousedown="right(event, this)"></li>
+            <li><img src="img/3.jpg" onclick="left(this)" ondblclick="double(this)" onmousedown="right(event, this)"></li>
+            <li><img src="img/4.jpg" onclick="left(this)" ondblclick="double(this)" onmousedown="right(event, this)"></li>
+        </ul>
+    </div>
+
+
+<script src="js/test.js"></script>
+    <script>
+        var timeId;
+        var num = 1;
+     
+      
+        function left(obj) {
+           
+            timeId = setTimeout(function () {
+                num -= 1;
+                var h = 150;
+                var w = 200;
+                var newH = (100 + num) * h / 100;
+                var newW = (100 + num) * w / 100;
+                obj.style.width = newW
+                obj.style.height = newH
+            }, 260);
+        }
+        //双击
+        function double(obj) {
+            // 取消上次延时未执行的方法
+            clearTimeout(timeId);
+          
+            obj.style.transform = "rotate(180deg)";
+        }
+        //右击
+        function right(event, obj) {
+
+            if (event.button == 2) {
+                num += 1;
+                var h = 150;
+                var w = 200;
+                var newH = (100 + num) * h / 100;
+                var newW = (100 + num) * w / 100;
+                obj.style.width = newW
+                obj.style.height = newH
+            }
+        }
+    </script>
+
+  
+</body>
+
+</html>

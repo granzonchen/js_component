@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+        .main{
+    text-align: center; 
+    background-color: #fff;
+    border-radius: 20px;
+
+    height: 350px;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        #ulImg {
+            width: 440px;
+            position: relative;
+            margin: 10px auto;
+            margin:auto;
+
+        }
+
+            #ulImg li {
+                width: 200px;
+                height: 150px;
+                float: left;
+                list-style: none;
+                margin: 10px;
+            }
+
+                #ulImg li:hover {
+                    border-color: #9a9fa4;
+                    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.85);
+                }
+
+            #ulImg .active {
+                border: 1px dashed red;
+            }
+    </style>
+    <script type="text/javascript" src="js/yd.js"></script>
+    <script type="text/javascript" src="js/td.js"></script>
+
+    
+</head>
+<body>
+    <div class="main">
+        <ul id="ulImg">
+            <li ><img src="images/1.jpg" width="200" height="150" id="img1" onclick="leftClick('img1')" ondblclick="dbClick('img1')" onmousedown="onMouseDown(event, 'img1')"  /></li>
+            <li><img src="images/2.jpg" width="200" height="150" id="img2"  onclick="leftClick('img2')" ondblclick="dbClick('img2')" onmousedown="onMouseDown(event, 'img2')"  /></li>
+            <li><img src="images/3.jpg" width="200" height="150" id="img3" onclick="leftClick('img3')" ondblclick="dbClick('img3')" onmousedown="onMouseDown(event, 'img3')" /></li>
+            <li><img src="images/4.jpg" width="200" height="150" id="img4" onclick="leftClick('img4')" ondblclick="dbClick('img4')" onmousedown="onMouseDown(event, 'img4')" /></li>
+         
+        </ul>
+    </div>
+    
+    <script type="text/javascript">
+        //放大缩小
+        var zoom =1;
+        function fd(objId)
+        {
+            zoom+=1
+            var h = document.getElementById(objId).naturalHeight
+            var w = document.getElementById(objId).naturalWidth
+
+            var newH = (100 + zoom) * h / 100;
+            var newW = (100 + zoom) * w / 100;
+            document.getElementById(objId).style.height = newH + "px";
+            document.getElementById(objId).style.width = newW + "px";
+        }
+      
+        //缩小
+        function sx(objId) {
+            zoom -= 1
+            var h = document.getElementById(objId).naturalHeight
+            var w = document.getElementById(objId).naturalWidth
+
+            var newH = (100 + zoom) * h / 100;
+            var newW = (100 + zoom) * w / 100;
+            document.getElementById(objId).style.height = newH + "px";
+            document.getElementById(objId).style.width = newW + "px";
+        }
+
+    </script>
+    <script type="text/javascript">
+
+        var timer = null;
+        function leftClick(objId) {
+            clearTimeout(timer);
+         
+            timer = setTimeout(function () {
+                fd(objId)
+            }, 300);
+        }
+        function dbClick(objId) {
+            clearTimeout(timer);
+            var img = document.getElementById(objId)
+            img.style.transform = "rotate(180deg)";
+        }
+        function onMouseDown(event, objId) {
+        
+            if (event.button == 2) {
+
+                sx(objId)
+            }
+        }
+
+    </script>
+</body>
+</html>
